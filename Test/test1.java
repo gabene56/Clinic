@@ -10,11 +10,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class test1 {
+
     private ClinicCalendar calendar;
 
     @BeforeEach
     public void init() {
-        calendar = new ClinicCalendar(LocalDate.now());
+        ClinicCalendar calendar = new ClinicCalendar(LocalDate.now());
     }
 
     @Test
