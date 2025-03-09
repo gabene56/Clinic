@@ -22,6 +22,14 @@ public class ClinicCalendar {
    public void addAppointment(String patientFirstName, String patientLastName, String doctorKey,
                               String dateTime) {
       Doctor doc = Doctor.valueOf(doctorKey.toLowerCase());
+      LocalDateTime localDateTime = convertToDateTimeFromString(dateTime);
+
+      PatientAppointment appointment = new PatientAppointment(patientFirstName, patientLastName,
+              localDateTime, doc);
+      appointments.add(appointment);
+   }
+
+   private LocalDateTime convertToDateTimeFromString(String dateTime) {
       LocalDateTime localDateTime;
       try {
          if (dateTime.toLowerCase().startsWith("today")) {
@@ -37,11 +45,8 @@ public class ClinicCalendar {
          throw new RuntimeException("Unable to create date time from: [" +
                  dateTime + "], please enter with format [M/d/yyyy h:mm a], " + t.getMessage());
       }
-      PatientAppointment appointment = new PatientAppointment(patientFirstName, patientLastName,
-              localDateTime, doc);
-      appointments.add(appointment);
+      return localDateTime;
    }
-
    public List<PatientAppointment> getAppointments() {
       return this.appointments;
    }
