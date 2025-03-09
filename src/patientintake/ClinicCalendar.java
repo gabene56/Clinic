@@ -6,6 +6,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ClinicCalendar {
 
@@ -46,6 +47,12 @@ public class ClinicCalendar {
 
    public List<PatientAppointment> getAppointments() {
       return this.appointments;
+   }
+
+   public List<PatientAppointment> getTodaysAppointments() {
+      return appointments.stream()
+              .filter(appt -> appt.getAppointmentDateTime().toLocalDate().equals(today))
+              .collect(Collectors.toList());
    }
 
 }
