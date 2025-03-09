@@ -21,7 +21,7 @@ public class ClinicCalendar {
    public void addAppointment(String patientFirstName, String patientLastName, String doctorKey,
                               String dateTime) {
       Doctor doc = Doctor.valueOf(doctorKey.toLowerCase());
-      LocalDateTime localDateTime;
+      LocalDateTime localDateTime = null;
       try{
          if(dateTime.toLowerCase().startsWith("today")){
             String[] parts = dateTime.split(" ", 2);
@@ -31,9 +31,9 @@ public class ClinicCalendar {
          }else{
             localDateTime = LocalDateTime.parse(dateTime.toUpperCase(),
             DateTimeFormatter.ofPattern("M/d/yyyy h:mm a", Locale.US));
-         }catch(DateTimeParseException e) {
-               System.out.println("Error: Invalid date/time format. Please use M/d/yyyy h:mm a.");
          }
+      }catch(DateTimeParseException e) {
+         System.out.println("Error: Invalid date/time format. Please use M/d/yyyy h:mm a.");
       }
       PatientAppointment appointment = new PatientAppointment(patientFirstName, patientLastName,
          localDateTime, doc);
